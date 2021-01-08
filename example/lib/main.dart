@@ -53,12 +53,14 @@ class _MyHomePageState extends State<MyHomePage> {
   DateTime _currentDate2 = DateTime(2019, 2, 3);
   String _currentMonth = DateFormat.yMMM().format(DateTime(2019, 2, 3));
   DateTime _targetDateTime = DateTime(2019, 2, 3);
+  static const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 //  List<DateTime> _markedDate = [DateTime(2018, 9, 20), DateTime(2018, 10, 11)];
   static Widget _eventIcon = new Container(
     decoration: new BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(1000)),
-        border: Border.all(color: Colors.blue, width: 2.0)),
+        border: Border.all(color: Color(0xff5fd2d0), width: 2.0)),
     child: new Icon(
       Icons.person,
       color: Colors.amber,
@@ -133,7 +135,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     /// Example Calendar Carousel without header and custom prev & next button
     _calendarCarouselNoHeader = CalendarCarousel<Event>(
-      todayBorderColor: Colors.green,
       onDayPressed: (DateTime date, List<Event> events) {
         this.setState(() => _currentDate2 = date);
         events.forEach((event){
@@ -141,54 +142,22 @@ class _MyHomePageState extends State<MyHomePage> {
           print(event.description);
           });
       },
+      headerWidth: MediaQuery.of(context).size.width,
       daysHaveCircularBorder: true,
       showOnlyCurrentMonthDate: false,
-      weekendTextStyle: TextStyle(
-        color: Colors.white,
-      ),
-      thisMonthDayBorderColor: Colors.grey,
       weekFormat: false,
-      isWeekNeed: false,
+      isWeekNeed: true,
       markedDatesMap: _markedDateMap,
       height: 420.0,
       selectedDateTime: _currentDate2,
       targetDateTime: _targetDateTime,
       customGridViewPhysics: NeverScrollableScrollPhysics(),
-      markedDateCustomTextStyle: TextStyle(
-        fontSize: 18,
-        color: Colors.white,
-      ),
-      showHeader: false,
-      todayTextStyle: TextStyle(
-        color: Colors.red,
-      ),
-      todayButtonColor: Colors.yellow,
-      selectedDayTextStyle: TextStyle(
-        color: Colors.lightBlue,
-        fontSize: 16,
-      ),
+      
+      showHeader: true,
+    
       minSelectedDate: _currentDate.subtract(Duration(days: 360)),
       maxSelectedDate: _currentDate.add(Duration(days: 360)),
-      prevDaysTextStyle: TextStyle(
-        fontSize: 16,
-        color: Color(0xffececf9),
-      ),
-      daysTextStyle: TextStyle(
-        color: Colors.white,
-        fontSize: 16,
-      ),
-      nextDaysTextStyle: TextStyle(
-        color: Color(0xffececf9),
-        fontSize: 16,
-      ),
-      selectedDayBorderColor: Colors.lightBlue,
-      selectedDayButtonColor: Colors.transparent,
-      prevMonthDayBorderColor: Color(0xffececf9),
-      nextMonthDayBorderColor: Color(0xffececf9),
-      inactiveDaysTextStyle: TextStyle(
-        color: Color(0xffececf9),
-        fontSize: 16,
-      ),
+     
       onCalendarChanged: (DateTime date) {
         this.setState(() {
           _targetDateTime = date;
@@ -209,46 +178,53 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
+              // Container(
+              //   margin: EdgeInsets.only(
+              //     top: 30.0,
+              //     bottom: 16.0,
+              //     left: 25.0,
+              //     right: 25.0,
+              //   ),
+              //   child: new Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //     children: <Widget>[
+              //       Expanded(
+              //           child: Text(
+              //         _currentMonth,
+              //         style: TextStyle(
+              //           fontWeight: FontWeight.bold,
+              //           fontSize: 24.0,
+              //         ),
+              //       )),
+              //       // FlatButton(
+              //       //   child:
+              //          Text(_currentMonth.substring(0,3)),
+              //         // onPressed: () {
+              //         //   setState(() {
+              //         //     _targetDateTime = DateTime(_targetDateTime.year, _targetDateTime.month -1);
+              //         //     _currentMonth = DateFormat.yMMM().format(_targetDateTime);
+              //         //   });
+              //         // },
+              //       //),
+                    
+              //       //Text(_targetDateTime.year.toString()),
+              //       FlatButton(
+              //         child: Text(monthNames[_targetDateTime.month-1]),
+              //         onPressed: () {
+              //           // setState(() {
+              //           //   _targetDateTime = DateTime(_targetDateTime.year, _targetDateTime.month +1);
+              //           //   _currentMonth = DateFormat.yMMM().format(_targetDateTime);
+              //           // });
+              //         },
+              //       ),
+              //       Text(monthNames[(_targetDateTime.month-1)+1]),
+              //      // Expanded(flex:1,child:Container()),
+              //      // Text("Attendance Report",style: TextStyle(color: Colors.grey[400],decoration: TextDecoration.underline,),)
+              //     ],
+              //   ),
+              // ),
               Container(
-                margin: EdgeInsets.only(
-                  top: 30.0,
-                  bottom: 16.0,
-                  left: 16.0,
-                  right: 16.0,
-                ),
-                child: new Row(
-                  children: <Widget>[
-                    // Expanded(
-                    //     child: Text(
-                    //   _currentMonth,
-                    //   style: TextStyle(
-                    //     fontWeight: FontWeight.bold,
-                    //     fontSize: 24.0,
-                    //   ),
-                    // )),
-                    FlatButton(
-                      child: Text('PREV'),
-                      onPressed: () {
-                        setState(() {
-                          _targetDateTime = DateTime(_targetDateTime.year, _targetDateTime.month -1);
-                          _currentMonth = DateFormat.yMMM().format(_targetDateTime);
-                        });
-                      },
-                    ),
-                    FlatButton(
-                      child: Text('NEXT'),
-                      onPressed: () {
-                        setState(() {
-                          _targetDateTime = DateTime(_targetDateTime.year, _targetDateTime.month +1);
-                          _currentMonth = DateFormat.yMMM().format(_targetDateTime);
-                        });
-                      },
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 16.0),
+                margin: EdgeInsets.symmetric(horizontal: 16.0,vertical: 20.0),
                 child: _calendarCarouselNoHeader,
               ), //
             ],

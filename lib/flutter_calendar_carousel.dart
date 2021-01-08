@@ -74,6 +74,8 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final Color selectedDayButtonColor;
   final Color selectedDayBorderColor;
   final bool daysHaveCircularBorder;
+  final String headerTitleRight;
+  final double headerWidth;
   final Function(DateTime, List<T>) onDayPressed;
   final TextStyle weekdayTextStyle;
   final Color iconColor;
@@ -137,26 +139,28 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final Color dayDefaultColor;
 
   CalendarCarousel({
+    this.headerTitleRight="Attendance Report",
+    this.headerWidth,
     this.viewportFraction = 1.0,
-    this.prevDaysTextStyle,
-    this.dayDefaultColor = const Color(0xffababab),
-    this.daysTextStyle,
-    this.nextDaysTextStyle,
+    this.prevDaysTextStyle = const TextStyle(fontWeight: FontWeight.w700,color: Colors.black),
+    this.dayDefaultColor =  Colors.transparent,
+    this.daysTextStyle = const TextStyle(fontWeight: FontWeight.w700,color: Colors.black),
+    this.nextDaysTextStyle = const TextStyle(fontWeight: FontWeight.w700,color: Colors.black),
     this.prevMonthDayBorderColor = Colors.transparent,
     this.thisMonthDayBorderColor = Colors.transparent,
     this.nextMonthDayBorderColor = Colors.transparent,
     this.dayPadding = 2.0,
     this.height = double.infinity,
     this.width = double.infinity,
-    this.todayTextStyle,
+    this.todayTextStyle = const TextStyle(fontWeight: FontWeight.w700,color: Colors.white),
     this.dayButtonColor = Colors.transparent,
-    this.todayBorderColor = Colors.red,
-    this.todayButtonColor = Colors.red,
+    this.todayBorderColor = const Color(0xff424593),
+    this.todayButtonColor = const Color(0xff424593),
     this.selectedDateTime,
     this.targetDateTime,
-    this.selectedDayTextStyle,
-    this.selectedDayBorderColor = Colors.green,
-    this.selectedDayButtonColor = Colors.green,
+    this.selectedDayTextStyle = const TextStyle(fontWeight: FontWeight.w700,color: Colors.red),
+    this.selectedDayBorderColor = Colors.red,
+    this.selectedDayButtonColor = Colors.white,
     this.daysHaveCircularBorder,
     this.onDayPressed,
     this.isWeekNeed = true,
@@ -178,7 +182,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
     this.markedDateCustomTextStyle,
     this.markedDateMoreCustomTextStyle,
     this.markedDateWidget,
-    this.headerMargin = const EdgeInsets.symmetric(vertical: 16.0),
+    this.headerMargin,
     this.childAspectRatio = 1.0,
     this.weekDayMargin = const EdgeInsets.only(bottom: 4.0),
     this.weekDayPadding = const EdgeInsets.all(0.0),
@@ -364,6 +368,8 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
                 : widget.weekFormat
                   ? '${_localeDate.format(this._weeks[this._pageNum].first)}'
                   : '${_localeDate.format(this._dates[this._pageNum])}',
+            headerTitleRight:widget.headerTitleRight,
+            headerWidth: widget.headerWidth,
             headerTextStyle: widget.headerTextStyle,
             showHeaderButtons: widget.showHeaderButton,
             headerIconColor: widget.iconColor,
@@ -490,7 +496,7 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
           onPressed: () => _onDayPressed(now),
           padding: EdgeInsets.all(widget.dayPadding),
           shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(100.0),
                     side: BorderSide(
                       color: isSelectedDay && dayColor != Color(0xffececf9)
                           ? dayColor : isSelectedDay && widget.selectedDayBorderColor != null
@@ -1083,7 +1089,8 @@ class _CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>
 
       return widget.customDayBuilder(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, styleForBuilder, isNextMonthDay, isThisMonthDay, now)
           ?? getDefaultDayContainer(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, defaultTextStyle, isNextMonthDay, isThisMonthDay, now,dayColor);
-    } else {
+    }
+     else {
       return getDefaultDayContainer(isSelectable, index, isSelectedDay, isToday, isPrevMonthDay, textStyle, defaultTextStyle, isNextMonthDay, isThisMonthDay, now,dayColor);
     }
   }
