@@ -49,43 +49,43 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  DateTime _currentDate = DateTime(2019, 2, 3);
-  DateTime _currentDate2 = DateTime(2019, 2, 3);
-  String _currentMonth = DateFormat.yMMM().format(DateTime(2019, 2, 3));
-  DateTime _targetDateTime = DateTime(2019, 2, 3);
-  static const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  DateTime _currentDate = DateTime.now();
+  DateTime _currentDate2 = DateTime.now();
+  String _currentMonth = DateFormat.yMMM().format(DateTime.now());
+  DateTime _targetDateTime = DateTime.now();
+
 //  List<DateTime> _markedDate = [DateTime(2018, 9, 20), DateTime(2018, 10, 11)];
   static Widget _eventIcon = new Container(
+    height: 4,
+    width: 4,
     decoration: new BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(1000)),
+        color: Color(0xff5fd2d0),
+        borderRadius: BorderRadius.all(Radius.circular(4)),
         border: Border.all(color: Color(0xff5fd2d0), width: 2.0)),
-    child: new Icon(
-      Icons.person,
-      color: Colors.amber,
-    ),
+  );
+
+  static Widget _event2Icon = new Container(
+    height: 4,
+    width: 4,
+    decoration: new BoxDecoration(
+        color: Color(0xfffed330),
+        borderRadius: BorderRadius.all(Radius.circular(4)),
+        border: Border.all(color: Color(0xfffed330), width: 2.0)),
   );
 
   EventList<Event> _markedDateMap = new EventList<Event>(
     events: {
-      new DateTime(2019, 2, 10): [
+      new DateTime(2021, 2, 10): [
         new Event(
-          date: new DateTime(2019, 2, 10),
-          title: 'Event 1',
-          description: 'kagsdksagdjkg',
-          color: Color(0xfffc5c65)
-        ),
+            date: new DateTime(2021, 2, 10),
+            title: 'Event 1',
+            description: 'kagsdksagdjkg',
+            color: Color(0xfffc5c65)),
         new Event(
-          date: new DateTime(2019, 2, 10),
-          title: 'Event 2',
-          icon: _eventIcon,
-        ),
-        new Event(
-          date: new DateTime(2019, 2, 10),
-          title: 'Event 3',
-          icon: _eventIcon,
-        ),
+            date: new DateTime(2021, 2, 10),
+            title: 'Event 2',
+            icon: _event2Icon,
+            description: 'kagsdksagdjkg'),
       ],
     },
   );
@@ -95,35 +95,30 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     /// Add more events to _markedDateMap EventList
-    _markedDateMap.add(
-        new DateTime(2019, 2, 25),
-        new Event(
-          date: new DateTime(2019, 2, 25),
-          title: 'Event 5',
-          color: Color(0xff42cd9b)
-        ));
+    _markedDateMap.add(new DateTime(2021, 2, 25),
+        new Event(date: new DateTime(2021, 2, 25), title: 'Event 5'));
 
     _markedDateMap.add(
-        new DateTime(2019, 2, 10),
+        new DateTime(2021, 2, 10),
         new Event(
-          date: new DateTime(2019, 2, 10),
+          date: new DateTime(2021, 2, 10),
           title: 'Event 4',
           icon: _eventIcon,
         ));
 
-    _markedDateMap.addAll(new DateTime(2019, 2, 11), [
+    _markedDateMap.addAll(new DateTime(2021, 2, 11), [
       new Event(
-        date: new DateTime(2019, 2, 11),
+        date: new DateTime(2021, 2, 11),
         title: 'Event 1',
         icon: _eventIcon,
       ),
       new Event(
-        date: new DateTime(2019, 2, 11),
+        date: new DateTime(2021, 2, 11),
         title: 'Event 2',
         icon: _eventIcon,
       ),
       new Event(
-        date: new DateTime(2019, 2, 11),
+        date: new DateTime(2021, 2, 11),
         title: 'Event 3',
         icon: _eventIcon,
       ),
@@ -137,10 +132,10 @@ class _MyHomePageState extends State<MyHomePage> {
     _calendarCarouselNoHeader = CalendarCarousel<Event>(
       onDayPressed: (DateTime date, List<Event> events) {
         this.setState(() => _currentDate2 = date);
-        events.forEach((event){
+        events.forEach((event) {
           print(event.title);
           print(event.description);
-          });
+        });
       },
       headerWidth: MediaQuery.of(context).size.width,
       daysHaveCircularBorder: true,
@@ -149,15 +144,12 @@ class _MyHomePageState extends State<MyHomePage> {
       isWeekNeed: true,
       markedDatesMap: _markedDateMap,
       height: 420.0,
-      selectedDateTime: _currentDate2,
+      //selectedDateTime: _currentDate2,
       targetDateTime: _targetDateTime,
       customGridViewPhysics: NeverScrollableScrollPhysics(),
-      
       showHeader: true,
-    
-      minSelectedDate: _currentDate.subtract(Duration(days: 360)),
-      maxSelectedDate: _currentDate.add(Duration(days: 360)),
-     
+      minSelectedDate: new DateTime(new DateTime.now().year, 1, 1),
+      maxSelectedDate: new DateTime(new DateTime.now().year, 12, 31),
       onCalendarChanged: (DateTime date) {
         this.setState(() {
           _targetDateTime = date;
@@ -206,7 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
               //         //   });
               //         // },
               //       //),
-                    
+
               //       //Text(_targetDateTime.year.toString()),
               //       FlatButton(
               //         child: Text(monthNames[_targetDateTime.month-1]),
@@ -224,7 +216,7 @@ class _MyHomePageState extends State<MyHomePage> {
               //   ),
               // ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 16.0,vertical: 20.0),
+                margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
                 child: _calendarCarouselNoHeader,
               ), //
             ],

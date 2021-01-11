@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'default_styles.dart';
 import 'default_styles.dart' show defaultHeaderTitleRight;
-class CalendarHeader extends StatelessWidget {
+
+class CalendarHeader extends StatefulWidget {
   /// Passing in values for [leftButtonIcon] or [rightButtonIcon] will override [headerIconColor]
   CalendarHeader(
       {@required this.headerTitle,
@@ -17,6 +18,8 @@ class CalendarHeader extends StatelessWidget {
       @required this.onLeftButtonPressed,
       @required this.onRightButtonPressed,
       this.isTitleTouchable,
+      this.index,
+      this.linkCallback,
       @required this.onHeaderTitlePressed});
 
   final String headerTitle;
@@ -29,93 +32,122 @@ class CalendarHeader extends StatelessWidget {
   final Color headerIconColor;
   final Widget leftButtonIcon;
   final Widget rightButtonIcon;
-  final VoidCallback onLeftButtonPressed;
-  final VoidCallback onRightButtonPressed;
+  final Function onLeftButtonPressed;
+  final Function linkCallback;
+  final Function onRightButtonPressed;
   final bool isTitleTouchable;
-  final VoidCallback onHeaderTitlePressed;
+  final Function onHeaderTitlePressed;
 
-  TextStyle get getTextStyle =>
-      headerTextStyle != null ? headerTextStyle : defaultHeaderTextStyle;
-  TextStyle get getTitleStyle =>
-      headerTextStyle != null ? headerTextStyle : defaultHeaderTitleRight;
-  TextStyle get getTextStyle1 =>
-      headerTextStyle != null ? headerTextStyle : defaultHeaderText;
-
-
-
-  Widget _leftButton() => IconButton(
-        onPressed: onLeftButtonPressed,
-        icon: leftButtonIcon ?? Icon(Icons.chevron_left, color: headerIconColor),
-      );
-
-  Widget _rightButton() => IconButton(
-        onPressed: onRightButtonPressed,
-        icon: rightButtonIcon ?? Icon(Icons.chevron_right, color: headerIconColor),
-      );
-
-  Widget _headerTouchable() => FlatButton(
-        onPressed: onHeaderTitlePressed,
-        child: Text(headerTitle, 
-          semanticsLabel: headerTitle,
-          style: getTextStyle,
-        ),
-      );
+  int index;
 
   @override
-  Widget build(BuildContext context) => showHeader
+  _CalendarHeaderState createState() => _CalendarHeaderState();
+}
+
+class _CalendarHeaderState extends State<CalendarHeader> {
+  List<String> months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec'
+  ];
+
+  TextStyle get getTextStyle => widget.headerTextStyle != null
+      ? widget.headerTextStyle
+      : defaultHeaderTextStyle;
+
+  TextStyle get getTitleStyle => widget.headerTextStyle != null
+      ? widget.headerTextStyle
+      : defaultHeaderTitleRight;
+
+  TextStyle get getTextStyle1 => widget.headerTextStyle != null
+      ? widget.headerTextStyle
+      : defaultHeaderText;
+
+  @override
+  Widget build(BuildContext context) => widget.showHeader
       ? Container(
-          margin: headerMargin,
+          margin: widget.headerMargin,
           child: DefaultTextStyle(
-              style: getTextStyle,
-              child: isTitleTouchable
-                        ? _headerTouchable()
-                        : _headings(),
-              //  Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //     children: <Widget>[
-              //      // showHeaderButtons ? _leftButton() : Container(),
-              //       isTitleTouchable
-              //           ? _headerTouchable()
-              //           : _headings(),
-              //      // showHeaderButtons ? _rightButton() : Container(),
-              //     ])
-                  ),
+            style: getTextStyle,
+            child: _headings(),
+          ),
         )
       : Container();
-      
-      Widget _headings(){
-        return Container(
-          width: headerWidth,
-          padding: EdgeInsets.only(left:10,right:10),
-          child: Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                width: headerWidth*0.4,
-                child:Row(children: [
-                  Container(child:Text("Jan" ,style: getTextStyle)),
-                  //Container(child:Text(headerTitle.substring(0,3) ,style: getTextStyle)),
-                  Container(
-                    padding: EdgeInsets.only(left:15,right:5),
-                    child:DropdownButton<String>(
-                    underline: Container(),
-                    iconEnabledColor:Color(0xff34378b),
-                    iconDisabledColor:Color(0xff34378b),
-                    hint:Text("Feb" ,style: getTextStyle1),
-                  items: <String>['Jan', 'Feb', 'Mar', 'April'].map((String value) {
-                    return new DropdownMenuItem<String>(
-                      value: value,
-                      child: new Text(value ,style: getTextStyle1),
-                    );
-                  }).toList(),
-                  onChanged: (_) {
-                  },
-                  )),
-                  Container(child:Text("Mar" ,style: getTextStyle)),
-              ],)),
 
-          Container(
-            child:Text(headerTitleRight,style: defaultHeaderTitleRight)),
-        ],));
-      }
+  Widget _headings() {
+    return Container(
+        width: widget.headerWidth,
+        padding: EdgeInsets.only(left: 10, right: 10, bottom: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+                width: widget.headerWidth * 0.4,
+                child: Row(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        if (widget.index != 11) {
+                          widget.onLeftButtonPressed(widget.index - 1);
+                        }
+                      },
+                      child: Container(
+                          child: Text(
+                              widget.index == 0 ? "" : months[widget.index - 1],
+                              style: getTextStyle1)),
+                    ),
+                    //Container(child:Text(headerTitle.substring(0,3) ,style: getTextStyle)),
+                    Container(
+                        padding: EdgeInsets.only(left: 15, right: 5),
+                        child: DropdownButton<String>(
+                          underline: Container(),
+                          iconEnabledColor: Color(0xff34378b),
+                          iconDisabledColor: Color(0xff34378b),
+                          value: months[widget.index],
+                          items: months.map((String value) {
+                            return new DropdownMenuItem<String>(
+                              value: value,
+                              child: new Text(value, style: getTextStyle),
+                            );
+                          }).toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              widget.index = months.indexOf(value);
+                              widget.onHeaderTitlePressed(widget.index);
+                            });
+                          },
+                        )),
+                    InkWell(
+                        onTap: () {
+                          if (widget.index != 11) {
+                            widget.onRightButtonPressed(widget.index + 1);
+                          }
+                        },
+                        child: Container(
+                            child: Text(
+                                widget.index == 11
+                                    ? ""
+                                    : months[widget.index + 1],
+                                style: getTextStyle1))),
+                  ],
+                )),
+            InkWell(
+                onTap: () {
+                  widget.linkCallback();
+                },
+                child: Container(
+                    child: Text(widget.headerTitleRight,
+                        style: defaultHeaderTitleRight))),
+          ],
+        ));
+  }
 }
