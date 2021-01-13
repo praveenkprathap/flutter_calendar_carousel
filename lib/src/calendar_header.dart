@@ -46,10 +46,6 @@ class CalendarHeader extends StatefulWidget {
 
 class _CalendarHeaderState extends State<CalendarHeader> {
   List<String> months = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
     'May',
     'Jun',
     'Jul',
@@ -57,7 +53,11 @@ class _CalendarHeaderState extends State<CalendarHeader> {
     'Sep',
     'Oct',
     'Nov',
-    'Dec'
+    'Dec',
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
   ];
 
   TextStyle get getTextStyle => widget.headerTextStyle != null
