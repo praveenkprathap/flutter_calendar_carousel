@@ -533,7 +533,7 @@ class _CalendarState<T extends EventInterface>
                         width: 5,
                       ),
                       Text(
-                        "Exams",
+                        "Absent",
                         style: TextStyle(
                           color: Color(0xff6e6e6e),
                           fontWeight: FontWeight.w600,
