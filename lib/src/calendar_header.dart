@@ -60,21 +60,6 @@ class _CalendarHeaderState extends State<CalendarHeader> {
     'Apr',
   ];
 
-  List<int> monthsNo = [
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    1,
-    2,
-    3,
-    4,
-  ];
-
   TextStyle get getTextStyle => widget.headerTextStyle != null
       ? widget.headerTextStyle
       : defaultHeaderTextStyle;
@@ -112,8 +97,7 @@ class _CalendarHeaderState extends State<CalendarHeader> {
                     InkWell(
                       onTap: () {
                         if (widget.index != 11) {
-                          widget
-                              .onLeftButtonPressed(monthsNo[widget.index] - 1);
+                          widget.onLeftButtonPressed(widget.index - 1);
                         }
                       },
                       child: Container(
@@ -138,21 +122,19 @@ class _CalendarHeaderState extends State<CalendarHeader> {
                           onChanged: (value) {
                             setState(() {
                               widget.index = months.indexOf(value);
-                              widget
-                                  .onHeaderTitlePressed(monthsNo[widget.index]);
+                              widget.onHeaderTitlePressed(widget.index);
                             });
                           },
                         )),
                     InkWell(
                         onTap: () {
                           if (widget.index != 11) {
-                            widget.onRightButtonPressed(
-                                monthsNo[widget.index] + 1);
+                            widget.onRightButtonPressed(widget.index + 1);
                           }
                         },
                         child: Container(
                             child: Text(
-                                monthsNo[widget.index] == 11
+                                widget.index == 11
                                     ? ""
                                     : months[widget.index + 1],
                                 style: getTextStyle1))),

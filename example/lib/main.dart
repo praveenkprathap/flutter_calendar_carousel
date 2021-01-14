@@ -148,8 +148,8 @@ class _MyHomePageState extends State<MyHomePage> {
       targetDateTime: _targetDateTime,
       customGridViewPhysics: NeverScrollableScrollPhysics(),
       showHeader: true,
-      minSelectedDate: new DateTime(new DateTime.now().year, 1, 1),
-      maxSelectedDate: new DateTime(new DateTime.now().year, 12, 31),
+      minSelectedDate: new DateTime(new DateTime.now().year - 1, 5, 1),
+      maxSelectedDate: new DateTime(new DateTime.now().year, 4, 30),
       onCalendarChanged: (DateTime date) {
         this.setState(() {
           _targetDateTime = date;
