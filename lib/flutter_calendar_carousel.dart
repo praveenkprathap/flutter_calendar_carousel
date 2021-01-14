@@ -407,16 +407,19 @@ class _CalendarState<T extends EventInterface>
             onLeftButtonPressed: (index) {
               _controller.animateToPage(index,
                   duration: Duration(milliseconds: 200), curve: Curves.easeIn);
+              this.widget.onHeaderTitlePressed(index);
             },
             onRightButtonPressed: (index) {
               _controller.animateToPage(index,
                   duration: Duration(milliseconds: 200), curve: Curves.easeIn);
+              this.widget.onHeaderTitlePressed(index);
             },
             isTitleTouchable: widget.headerTitleTouchable,
             index: this._pageNum,
             onHeaderTitlePressed: (index) {
               _controller.animateToPage(index,
                   duration: Duration(milliseconds: 200), curve: Curves.easeIn);
+              this.widget.onHeaderTitlePressed(index);
             },
           ),
           widget.isWeekNeed
@@ -1190,7 +1193,7 @@ class _CalendarState<T extends EventInterface>
           }
         } else {
           //max 5 dots
-          if (eventIndex < 5) {
+          if (eventIndex < 2) {
             if (widget.markedDateIconBuilder != null) {
               tmp.add(widget.markedDateIconBuilder(event));
             } else {
