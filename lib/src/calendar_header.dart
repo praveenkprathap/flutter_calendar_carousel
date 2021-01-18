@@ -96,6 +96,7 @@ class _CalendarHeaderState extends State<CalendarHeader> {
               width: widget.headerWidth * 0.4,
               child: CarouselSlider(
                 options: CarouselOptions(
+                    initialPage: widget.index,
                     autoPlay: false,
                     enlargeCenterPage: true,
                     enableInfiniteScroll: false,
