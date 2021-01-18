@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'default_styles.dart';
 import 'default_styles.dart' show defaultHeaderTitleRight;
@@ -86,60 +87,86 @@ class _CalendarHeaderState extends State<CalendarHeader> {
   Widget _headings() {
     return Container(
         width: widget.headerWidth,
-        padding: EdgeInsets.only(left: 10, right: 10, bottom: 20),
+        padding: EdgeInsets.only(left: 0, right: 10, bottom: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-                width: widget.headerWidth * 0.4,
-                child: Row(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        if (widget.index != 11) {
-                          widget.onLeftButtonPressed(widget.index - 1);
-                        }
-                      },
-                      child: Container(
-                          child: Text(
-                              widget.index == 0 ? "" : months[widget.index - 1],
-                              style: getTextStyle1)),
-                    ),
-                    //Container(child:Text(headerTitle.substring(0,3) ,style: getTextStyle)),
-                    Container(
-                        padding: EdgeInsets.only(left: 15, right: 5),
-                        child: DropdownButton<String>(
-                          underline: Container(),
-                          iconEnabledColor: Color(0xff34378b),
-                          iconDisabledColor: Color(0xff34378b),
-                          value: months[widget.index],
-                          items: months.map((String value) {
-                            return new DropdownMenuItem<String>(
-                              value: value,
-                              child: new Text(value, style: getTextStyle),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              widget.index = months.indexOf(value);
-                              widget.onHeaderTitlePressed(widget.index);
-                            });
-                          },
-                        )),
-                    InkWell(
-                        onTap: () {
-                          if (widget.index != 11) {
-                            widget.onRightButtonPressed(widget.index + 1);
-                          }
-                        },
-                        child: Container(
-                            child: Text(
-                                widget.index == 11
-                                    ? ""
-                                    : months[widget.index + 1],
-                                style: getTextStyle1))),
-                  ],
-                )),
+              alignment: Alignment.centerLeft,
+              width: widget.headerWidth * 0.4,
+              child: CarouselSlider(
+                options: CarouselOptions(
+                    autoPlay: false,
+                    enlargeCenterPage: true,
+                    enableInfiniteScroll: false,
+                    height: 25.0,
+                    viewportFraction: 0.3,
+                    onPageChanged: (i, page) {
+                      widget.onLeftButtonPressed(i);
+                    }),
+                items: months.map((i) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Container(
+                          width: 50,
+                          margin: EdgeInsets.symmetric(horizontal: 5.0),
+                          decoration: BoxDecoration(color: Colors.transparent),
+                          child: Text(i, style: getTextStyle));
+                    },
+                  );
+                }).toList(),
+              ),
+            ),
+            // Container(
+            //     width: widget.headerWidth * 0.4,
+            //     child: Row(
+            //       children: [
+            //         InkWell(
+            //           onTap: () {
+            //             if (widget.index != 11) {
+            //               widget.onLeftButtonPressed(widget.index - 1);
+            //             }
+            //           },
+            //           child: Container(
+            //               child: Text(
+            //                   widget.index == 0 ? "" : months[widget.index - 1],
+            //                   style: getTextStyle1)),
+            //         ),
+            //         //Container(child:Text(headerTitle.substring(0,3) ,style: getTextStyle)),
+            //         Container(
+            //             padding: EdgeInsets.only(left: 15, right: 5),
+            //             child: DropdownButton<String>(
+            //               underline: Container(),
+            //               iconEnabledColor: Color(0xff34378b),
+            //               iconDisabledColor: Color(0xff34378b),
+            //               value: months[widget.index],
+            //               items: months.map((String value) {
+            //                 return new DropdownMenuItem<String>(
+            //                   value: value,
+            //                   child: new Text(value, style: getTextStyle),
+            //                 );
+            //               }).toList(),
+            //               onChanged: (value) {
+            //                 setState(() {
+            //                   widget.index = months.indexOf(value);
+            //                   widget.onHeaderTitlePressed(widget.index);
+            //                 });
+            //               },
+            //             )),
+            //         InkWell(
+            //             onTap: () {
+            //               if (widget.index != 11) {
+            //                 widget.onRightButtonPressed(widget.index + 1);
+            //               }
+            //             },
+            //             child: Container(
+            //                 child: Text(
+            //                     widget.index == 11
+            //                         ? ""
+            //                         : months[widget.index + 1],
+            //                     style: getTextStyle1))),
+            //       ],
+            //     )),
             InkWell(
                 onTap: () {
                   widget.linkCallback();

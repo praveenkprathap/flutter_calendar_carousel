@@ -148,12 +148,21 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
       this.headerWidth,
       this.viewportFraction = 1.0,
       this.prevDaysTextStyle = const TextStyle(
-          fontWeight: FontWeight.w700, color: Color(0xff5c5c5c), fontSize: 17),
+          fontFamily: 'Axiforma',
+          fontWeight: FontWeight.w700,
+          color: Color(0xff5c5c5c),
+          fontSize: 17),
       this.dayDefaultColor = Colors.transparent,
       this.daysTextStyle = const TextStyle(
-          fontWeight: FontWeight.w700, color: Color(0xff5c5c5c), fontSize: 17),
+          fontFamily: 'Axiforma',
+          fontWeight: FontWeight.w700,
+          color: Color(0xff5c5c5c),
+          fontSize: 17),
       this.nextDaysTextStyle = const TextStyle(
-          fontWeight: FontWeight.w700, color: Color(0xff5c5c5c), fontSize: 17),
+          fontFamily: 'Axiforma',
+          fontWeight: FontWeight.w700,
+          color: Color(0xff5c5c5c),
+          fontSize: 17),
       this.prevMonthDayBorderColor = Colors.transparent,
       this.thisMonthDayBorderColor = Colors.transparent,
       this.nextMonthDayBorderColor = Colors.transparent,
@@ -161,13 +170,17 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
       this.height = double.infinity,
       this.width = double.infinity,
       this.todayTextStyle = const TextStyle(
-          fontWeight: FontWeight.w700, color: Colors.white, fontSize: 17),
+          fontFamily: 'Axiforma',
+          fontWeight: FontWeight.w700,
+          color: Colors.white,
+          fontSize: 17),
       this.dayButtonColor = Colors.transparent,
       this.todayBorderColor = const Color(0xff424593),
       this.todayButtonColor = const Color(0xff424593),
       this.selectedDateTime,
       this.targetDateTime,
       this.selectedDayTextStyle = const TextStyle(
+          fontFamily: 'Axiforma',
           fontWeight: FontWeight.w700,
           color: const Color(0xfffc5c65),
           fontSize: 17),
@@ -480,6 +493,7 @@ class _CalendarState<T extends EventInterface>
                       Text(
                         "Events",
                         style: TextStyle(
+                          fontFamily: 'Axiforma',
                           color: Color(0xff6e6e6e),
                           fontWeight: FontWeight.w600,
                           fontSize: 12.0,
@@ -509,6 +523,7 @@ class _CalendarState<T extends EventInterface>
                       Text(
                         "Exams",
                         style: TextStyle(
+                          fontFamily: 'Axiforma',
                           color: Color(0xff6e6e6e),
                           fontWeight: FontWeight.w600,
                           fontSize: 12.0,
@@ -538,6 +553,7 @@ class _CalendarState<T extends EventInterface>
                       Text(
                         "Absent",
                         style: TextStyle(
+                          fontFamily: 'Axiforma',
                           color: Color(0xff6e6e6e),
                           fontWeight: FontWeight.w600,
                           fontSize: 12.0,
@@ -1181,6 +1197,7 @@ class _CalendarState<T extends EventInterface>
                           : (count.toString() + '+'),
                       style: widget.markedDateMoreCustomTextStyle == null
                           ? TextStyle(
+                              fontFamily: 'Axiforma',
                               fontSize: 9.0,
                               color: Colors.white,
                               fontWeight: FontWeight.normal)
@@ -1260,7 +1277,7 @@ class _CalendarState<T extends EventInterface>
       bool isThisMonthDay,
       Color dayColor) {
     return dayColor != Colors.transparent
-        ? TextStyle(color: dayColor, fontSize: 16)
+        ? TextStyle(fontFamily: 'Axiforma', color: dayColor, fontSize: 16)
         : isSelectedDay && widget.selectedDayTextStyle != null
             ? widget.selectedDayTextStyle
             : (widget.weekEnds.contains((index - 1 + firstDayOfWeek) % 7)) &&

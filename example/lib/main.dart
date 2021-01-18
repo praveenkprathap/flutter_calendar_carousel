@@ -143,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
       weekFormat: false,
       isWeekNeed: true,
       markedDatesMap: _markedDateMap,
-      height: 420.0,
+      height: 450.0,
       //selectedDateTime: _currentDate2,
       targetDateTime: _targetDateTime,
       customGridViewPhysics: NeverScrollableScrollPhysics(),
