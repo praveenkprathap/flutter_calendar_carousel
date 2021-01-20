@@ -129,10 +129,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   init(BuildContext context) {
     var _mediaQueryData = MediaQuery.of(context);
-    double screenHeight = _mediaQueryData.size.height;
-    double _safeAreaVertical =
-        _mediaQueryData.padding.top + _mediaQueryData.padding.bottom;
-    fontSize = (screenHeight - _safeAreaVertical) / 100;
+    double screenWidth = _mediaQueryData.size.width;
+    double _safeAreaHorizontal =
+        _mediaQueryData.padding.left + _mediaQueryData.padding.right;
+    fontSize = (screenWidth - _safeAreaHorizontal) / 100;
   }
 
   @override

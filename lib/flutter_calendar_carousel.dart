@@ -252,12 +252,7 @@ class _CalendarState<T extends EventInterface>
   int _pageNum = 0;
   DateTime minDate;
   DateTime maxDate;
-
-  /// When FIRSTDAYOFWEEK is 0 in dart-intl, it represents Monday. However it is the second day in the arrays of Weekdays.
-  /// Therefore we need to add 1 modulo 7 to pick the right weekday from intl. (cf. [GlobalMaterialLocalizations])
   int firstDayOfWeek;
-
-  /// If the setState called from this class, don't reload the selectedDate, but it should reload selected date if called from external class
 
   @override
   initState() {
@@ -337,12 +332,12 @@ class _CalendarState<T extends EventInterface>
               fontFamily: 'Axiforma',
               fontWeight: FontWeight.w700,
               color: Color(0xff5c5c5c),
-              fontSize: (defaultfontSize * 2));
+              fontSize: (defaultfontSize * 4.2));
       widget.todayTextStyle = TextStyle(
           fontFamily: 'Axiforma',
           fontWeight: FontWeight.w700,
           color: Colors.white,
-          fontSize: (defaultfontSize * 2));
+          fontSize: (defaultfontSize * 4.2));
     });
   }
 
@@ -495,7 +490,7 @@ class _CalendarState<T extends EventInterface>
                           fontFamily: 'Axiforma',
                           color: Color(0xff6e6e6e),
                           fontWeight: FontWeight.w600,
-                          fontSize: defaultfontSize * 1.5,
+                          fontSize: defaultfontSize * 3.4,
                         ),
                       )
                     ],
@@ -525,7 +520,7 @@ class _CalendarState<T extends EventInterface>
                           fontFamily: 'Axiforma',
                           color: Color(0xff6e6e6e),
                           fontWeight: FontWeight.w600,
-                          fontSize: defaultfontSize * 1.5,
+                          fontSize: defaultfontSize * 3.4,
                         ),
                       )
                     ],
@@ -555,7 +550,7 @@ class _CalendarState<T extends EventInterface>
                           fontFamily: 'Axiforma',
                           color: Color(0xff6e6e6e),
                           fontWeight: FontWeight.w600,
-                          fontSize: defaultfontSize * 1.5,
+                          fontSize: defaultfontSize * 3.4,
                         ),
                       )
                     ],
@@ -1197,7 +1192,7 @@ class _CalendarState<T extends EventInterface>
                       style: widget.markedDateMoreCustomTextStyle == null
                           ? TextStyle(
                               fontFamily: 'Axiforma',
-                              fontSize: defaultfontSize,
+                              fontSize: defaultfontSize * 3,
                               color: Colors.white,
                               fontWeight: FontWeight.normal)
                           : widget.markedDateMoreCustomTextStyle,
@@ -1279,7 +1274,7 @@ class _CalendarState<T extends EventInterface>
         ? TextStyle(
             fontFamily: 'Axiforma',
             color: dayColor,
-            fontSize: defaultfontSize * 1.9)
+            fontSize: defaultfontSize * 4)
         : isSelectedDay && widget.selectedDayTextStyle != null
             ? widget.selectedDayTextStyle
             : (widget.weekEnds.contains((index - 1 + firstDayOfWeek) % 7)) &&
