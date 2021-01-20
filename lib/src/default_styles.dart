@@ -1,81 +1,83 @@
 import 'package:flutter/material.dart';
 
-const TextStyle defaultHeaderTextStyle = const TextStyle(
-  fontFamily: 'Axiforma',
-  fontSize: 17.0,
-  fontWeight: FontWeight.w500,
-  color: Color(0xff34378b),
-);
-const TextStyle defaultPrevDaysTextStyle = const TextStyle(
-  fontFamily: 'Axiforma',
-  color: Colors.grey,
-  fontWeight: FontWeight.w700,
-  fontSize: 17.0,
-);
-const TextStyle defaultHeaderTitleRight = const TextStyle(
-  fontFamily: 'Axiforma',
-  color: Color(0xff6e6e6e),
-  fontWeight: FontWeight.w300,
-  fontSize: 16.0,
-  decoration: TextDecoration.underline,
-);
-const TextStyle defaultNextDaysTextStyle = const TextStyle(
-  fontFamily: 'Axiforma',
-  color: Colors.grey,
-  fontWeight: FontWeight.w700,
-  fontSize: 17.0,
-);
-const TextStyle defaultDaysTextStyle = const TextStyle(
-  fontFamily: 'Axiforma',
-  color: Colors.black,
-  fontWeight: FontWeight.w700,
-  fontSize: 17.0,
-);
-const TextStyle defaultTodayTextStyle = const TextStyle(
-  fontFamily: 'Axiforma',
-  color: Colors.white,
-  fontWeight: FontWeight.w700,
-  fontSize: 17.0,
-);
-const TextStyle defaultSelectedDayTextStyle = const TextStyle(
-  fontFamily: 'Axiforma',
-  color: Colors.white,
-  fontWeight: FontWeight.w700,
-  fontSize: 17.0,
-);
-const TextStyle defaultWeekdayTextStyle = const TextStyle(
-  fontFamily: 'Axiforma',
-  color: Color(0xff7073ad),
-  fontSize: 17.0,
-  fontWeight: FontWeight.w400,
-);
-const TextStyle defaultHeaderText = const TextStyle(
-  fontFamily: 'Axiforma',
-  color: Color(0xff7073ad),
-  fontSize: 14.0,
-  fontWeight: FontWeight.w400,
-);
-const TextStyle defaultWeekendTextStyle = const TextStyle(
-  fontFamily: 'Axiforma',
-  color: Color(0xfffc5c65),
-  fontWeight: FontWeight.w700,
-  fontSize: 17.0,
-);
-const TextStyle defaultInactiveDaysTextStyle = const TextStyle(
-  fontFamily: 'Axiforma',
-  color: Colors.black38,
-  fontWeight: FontWeight.w700,
-  fontSize: 17.0,
-);
-final TextStyle defaultInactiveWeekendTextStyle = TextStyle(
-  fontFamily: 'Axiforma',
-  color: Color(0xfffc5c65).withOpacity(0.6),
-  fontWeight: FontWeight.w700,
-  fontSize: 17.0,
-);
-final Widget defaultMarkedDateWidget = Container(
-  margin: EdgeInsets.symmetric(horizontal: 1.0),
-  color: Colors.blueAccent,
-  height: 4.0,
-  width: 4.0,
-);
+double defaultfontSize;
+
+TextStyle get defaultHeaderTextStyle => TextStyle(
+      fontFamily: 'Axiforma',
+      fontSize: defaultfontSize * 1.9,
+      fontWeight: FontWeight.w500,
+      color: Color(0xff34378b),
+    );
+TextStyle get defaultPrevDaysTextStyle => TextStyle(
+      fontFamily: 'Axiforma',
+      color: Colors.grey,
+      fontWeight: FontWeight.w700,
+      fontSize: defaultfontSize * 1.9,
+    );
+TextStyle get defaultHeaderTitleRight => TextStyle(
+      fontFamily: 'Axiforma',
+      color: Color(0xff6e6e6e),
+      fontWeight: FontWeight.w300,
+      fontSize: defaultfontSize * 1.7,
+      decoration: TextDecoration.underline,
+    );
+TextStyle get defaultNextDaysTextStyle => TextStyle(
+      fontFamily: 'Axiforma',
+      color: Colors.grey,
+      fontWeight: FontWeight.w700,
+      fontSize: defaultfontSize * 1.9,
+    );
+TextStyle get defaultDaysTextStyle => TextStyle(
+      fontFamily: 'Axiforma',
+      color: Colors.black,
+      fontWeight: FontWeight.w700,
+      fontSize: defaultfontSize * 1.9,
+    );
+TextStyle get defaultTodayTextStyle => TextStyle(
+      fontFamily: 'Axiforma',
+      color: Colors.white,
+      fontWeight: FontWeight.w700,
+      fontSize: defaultfontSize * 1.9,
+    );
+TextStyle get defaultSelectedDayTextStyle => TextStyle(
+      fontFamily: 'Axiforma',
+      color: Colors.white,
+      fontWeight: FontWeight.w700,
+      fontSize: defaultfontSize * 1.9,
+    );
+TextStyle get defaultWeekdayTextStyle => TextStyle(
+      fontFamily: 'Axiforma',
+      color: Color(0xff7073ad),
+      fontSize: defaultfontSize * 1.9,
+      fontWeight: FontWeight.w400,
+    );
+TextStyle get defaultHeaderText => TextStyle(
+      fontFamily: 'Axiforma',
+      color: Color(0xff7073ad),
+      fontSize: defaultfontSize * 1.6,
+      fontWeight: FontWeight.w400,
+    );
+TextStyle get defaultWeekendTextStyle => TextStyle(
+      fontFamily: 'Axiforma',
+      color: Color(0xfffc5c65),
+      fontWeight: FontWeight.w700,
+      fontSize: defaultfontSize * 1.9,
+    );
+TextStyle get defaultInactiveDaysTextStyle => TextStyle(
+      fontFamily: 'Axiforma',
+      color: Colors.black38,
+      fontWeight: FontWeight.w700,
+      fontSize: defaultfontSize * 1.9,
+    );
+TextStyle get defaultInactiveWeekendTextStyle => TextStyle(
+      fontFamily: 'Axiforma',
+      color: Color(0xfffc5c65).withOpacity(0.6),
+      fontWeight: FontWeight.w700,
+      fontSize: defaultfontSize * 1.9,
+    );
+Widget get defaultMarkedDateWidget => Container(
+      margin: EdgeInsets.symmetric(horizontal: 1.0),
+      color: Colors.blueAccent,
+      height: 4.0,
+      width: 4.0,
+    );

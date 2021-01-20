@@ -53,6 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
   DateTime _currentDate2 = DateTime.now();
   String _currentMonth = DateFormat.yMMM().format(DateTime.now());
   DateTime _targetDateTime = DateTime.now();
+  double fontSize;
 
 //  List<DateTime> _markedDate = [DateTime(2018, 9, 20), DateTime(2018, 10, 11)];
   static Widget _eventIcon = new Container(
@@ -126,8 +127,18 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
+  init(BuildContext context) {
+    var _mediaQueryData = MediaQuery.of(context);
+    double screenHeight = _mediaQueryData.size.height;
+    double _safeAreaVertical =
+        _mediaQueryData.padding.top + _mediaQueryData.padding.bottom;
+    fontSize = (screenHeight - _safeAreaVertical) / 100;
+  }
+
   @override
   Widget build(BuildContext context) {
+    init(context);
+
     /// Example Calendar Carousel without header and custom prev & next button
     _calendarCarouselNoHeader = CalendarCarousel<Event>(
       onDayPressed: (DateTime date, List<Event> events) {
@@ -144,6 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
       isWeekNeed: true,
       markedDatesMap: _markedDateMap,
       height: 450.0,
+      fontSize: fontSize,
       //selectedDateTime: _currentDate2,
       targetDateTime: _targetDateTime,
       customGridViewPhysics: NeverScrollableScrollPhysics(),

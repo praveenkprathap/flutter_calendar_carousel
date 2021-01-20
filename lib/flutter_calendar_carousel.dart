@@ -53,9 +53,9 @@ typedef Widget WeekdayBuilder(int weekday, String weekdayName);
 
 class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final double viewportFraction;
-  final TextStyle prevDaysTextStyle;
-  final TextStyle daysTextStyle;
-  final TextStyle nextDaysTextStyle;
+  TextStyle prevDaysTextStyle;
+  TextStyle daysTextStyle;
+  TextStyle nextDaysTextStyle;
   final Color prevMonthDayBorderColor;
   final Color thisMonthDayBorderColor;
   final Color nextMonthDayBorderColor;
@@ -63,24 +63,24 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final double height;
   final bool isWeekNeed;
   final double width;
-  final TextStyle todayTextStyle;
+  TextStyle todayTextStyle;
   final Color dayButtonColor;
   final Color todayBorderColor;
   final Color todayButtonColor;
   final DateTime selectedDateTime;
   final DateTime targetDateTime;
-  final TextStyle selectedDayTextStyle;
+  TextStyle selectedDayTextStyle;
   final Color selectedDayButtonColor;
   final Color selectedDayBorderColor;
   final bool daysHaveCircularBorder;
   final String headerTitleRight;
   final double headerWidth;
   final Function(DateTime, List<T>) onDayPressed;
-  final TextStyle weekdayTextStyle;
+  TextStyle weekdayTextStyle;
   final Color iconColor;
-  final TextStyle headerTextStyle;
+  TextStyle headerTextStyle;
   final String headerText;
-  final TextStyle weekendTextStyle;
+  TextStyle weekendTextStyle;
   final EventList<Event> markedDatesMap;
   final List<int> weekEnds;
 
@@ -91,7 +91,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final ShapeBorder markedDateCustomShapeBorder;
 
   /// Change `TextStyle` when `markedDateShowIcon` is set to false.
-  final TextStyle markedDateCustomTextStyle;
+  TextStyle markedDateCustomTextStyle;
 
   /// Icon will overlap the [Day] widget when `markedDateShowIcon` is set to true.
   /// This will also make below parameters work.
@@ -105,7 +105,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   /// null - no indicator, true - show the total events, false - show the total of hidden events
   final bool markedDateMoreShowTotal;
   final Decoration markedDateMoreCustomDecoration;
-  final TextStyle markedDateMoreCustomTextStyle;
+  TextStyle markedDateMoreCustomTextStyle;
   final EdgeInsets headerMargin;
   final double childAspectRatio;
   final EdgeInsets weekDayMargin;
@@ -119,14 +119,15 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final bool showHeaderButton;
   final Widget leftButtonIcon;
   final Widget rightButtonIcon;
+  final double fontSize;
   final ScrollPhysics customGridViewPhysics;
   final Function(DateTime) onCalendarChanged;
   final String locale;
   final int firstDayOfWeek;
   final DateTime minSelectedDate;
   final DateTime maxSelectedDate;
-  final TextStyle inactiveDaysTextStyle;
-  final TextStyle inactiveWeekendTextStyle;
+  TextStyle inactiveDaysTextStyle;
+  TextStyle inactiveWeekendTextStyle;
   final bool headerTitleTouchable;
   final Function onHeaderTitlePressed;
   final WeekdayFormat weekDayFormat;
@@ -147,43 +148,24 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
       {this.headerTitleRight = "Attendance Report",
       this.headerWidth,
       this.viewportFraction = 1.0,
-      this.prevDaysTextStyle = const TextStyle(
-          fontFamily: 'Axiforma',
-          fontWeight: FontWeight.w700,
-          color: Color(0xff5c5c5c),
-          fontSize: 17),
+      this.fontSize,
+      this.prevDaysTextStyle,
       this.dayDefaultColor = Colors.transparent,
-      this.daysTextStyle = const TextStyle(
-          fontFamily: 'Axiforma',
-          fontWeight: FontWeight.w700,
-          color: Color(0xff5c5c5c),
-          fontSize: 17),
-      this.nextDaysTextStyle = const TextStyle(
-          fontFamily: 'Axiforma',
-          fontWeight: FontWeight.w700,
-          color: Color(0xff5c5c5c),
-          fontSize: 17),
+      this.daysTextStyle,
+      this.nextDaysTextStyle,
       this.prevMonthDayBorderColor = Colors.transparent,
       this.thisMonthDayBorderColor = Colors.transparent,
       this.nextMonthDayBorderColor = Colors.transparent,
       this.dayPadding = 7.0,
       this.height = double.infinity,
       this.width = double.infinity,
-      this.todayTextStyle = const TextStyle(
-          fontFamily: 'Axiforma',
-          fontWeight: FontWeight.w700,
-          color: Colors.white,
-          fontSize: 17),
+      this.todayTextStyle,
       this.dayButtonColor = Colors.transparent,
       this.todayBorderColor = const Color(0xff424593),
       this.todayButtonColor = const Color(0xff424593),
       this.selectedDateTime,
       this.targetDateTime,
-      this.selectedDayTextStyle = const TextStyle(
-          fontFamily: 'Axiforma',
-          fontWeight: FontWeight.w700,
-          color: const Color(0xfffc5c65),
-          fontSize: 17),
+      this.selectedDayTextStyle,
       this.selectedDayBorderColor = const Color(0xfffc5c65),
       this.selectedDayButtonColor = Colors.transparent,
       this.daysHaveCircularBorder,
@@ -281,7 +263,7 @@ class _CalendarState<T extends EventInterface>
   initState() {
     super.initState();
     initializeDateFormatting();
-
+    change();
     minDate = widget.minSelectedDate ?? DateTime(2018);
     maxDate = widget.maxSelectedDate ??
         DateTime(
@@ -345,6 +327,23 @@ class _CalendarState<T extends EventInterface>
       firstDayOfWeek = widget.firstDayOfWeek;
 
     _setDate();
+  }
+
+  change() {
+    setState(() {
+      defaultfontSize = widget.fontSize;
+      widget.prevDaysTextStyle = widget.daysTextStyle =
+          widget.nextDaysTextStyle = widget.selectedDayTextStyle = TextStyle(
+              fontFamily: 'Axiforma',
+              fontWeight: FontWeight.w700,
+              color: Color(0xff5c5c5c),
+              fontSize: (defaultfontSize * 2));
+      widget.todayTextStyle = TextStyle(
+          fontFamily: 'Axiforma',
+          fontWeight: FontWeight.w700,
+          color: Colors.white,
+          fontSize: (defaultfontSize * 2));
+    });
   }
 
   @override
@@ -496,7 +495,7 @@ class _CalendarState<T extends EventInterface>
                           fontFamily: 'Axiforma',
                           color: Color(0xff6e6e6e),
                           fontWeight: FontWeight.w600,
-                          fontSize: 12.0,
+                          fontSize: defaultfontSize * 1.5,
                         ),
                       )
                     ],
@@ -526,7 +525,7 @@ class _CalendarState<T extends EventInterface>
                           fontFamily: 'Axiforma',
                           color: Color(0xff6e6e6e),
                           fontWeight: FontWeight.w600,
-                          fontSize: 12.0,
+                          fontSize: defaultfontSize * 1.5,
                         ),
                       )
                     ],
@@ -556,7 +555,7 @@ class _CalendarState<T extends EventInterface>
                           fontFamily: 'Axiforma',
                           color: Color(0xff6e6e6e),
                           fontWeight: FontWeight.w600,
-                          fontSize: 12.0,
+                          fontSize: defaultfontSize * 1.5,
                         ),
                       )
                     ],
@@ -1198,7 +1197,7 @@ class _CalendarState<T extends EventInterface>
                       style: widget.markedDateMoreCustomTextStyle == null
                           ? TextStyle(
                               fontFamily: 'Axiforma',
-                              fontSize: 9.0,
+                              fontSize: defaultfontSize,
                               color: Colors.white,
                               fontWeight: FontWeight.normal)
                           : widget.markedDateMoreCustomTextStyle,
@@ -1277,7 +1276,10 @@ class _CalendarState<T extends EventInterface>
       bool isThisMonthDay,
       Color dayColor) {
     return dayColor != Colors.transparent
-        ? TextStyle(fontFamily: 'Axiforma', color: dayColor, fontSize: 16)
+        ? TextStyle(
+            fontFamily: 'Axiforma',
+            color: dayColor,
+            fontSize: defaultfontSize * 1.9)
         : isSelectedDay && widget.selectedDayTextStyle != null
             ? widget.selectedDayTextStyle
             : (widget.weekEnds.contains((index - 1 + firstDayOfWeek) % 7)) &&
