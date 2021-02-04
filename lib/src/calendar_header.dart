@@ -92,32 +92,63 @@ class _CalendarHeaderState extends State<CalendarHeader> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              alignment: Alignment.centerLeft,
-              width: widget.headerWidth * 0.4,
-              child: CarouselSlider(
-                options: CarouselOptions(
-                    initialPage: widget.index,
-                    autoPlay: false,
-                    enlargeCenterPage: true,
-                    enableInfiniteScroll: false,
-                    height: 25.0,
-                    viewportFraction: 0.3,
-                    onPageChanged: (i, page) {
-                      widget.onLeftButtonPressed(i);
-                    }),
-                items: months.map((i) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return Container(
-                          width: 50,
-                          margin: EdgeInsets.symmetric(horizontal: 5.0),
-                          decoration: BoxDecoration(color: Colors.transparent),
-                          child: Text(i, style: getTextStyle));
-                    },
-                  );
-                }).toList(),
-              ),
-            ),
+                alignment: Alignment.centerLeft,
+                width: widget.headerWidth * 0.4,
+                child: Row(
+                  children: [
+                    SizedBox(width: 3),
+                    widget.index > 0
+                        ? InkWell(
+                            child: Icon(
+                              Icons.arrow_left,
+                              color: Color(0xff34378b),
+                            ),
+                            onTap: () {
+                              int i = widget.index - 1;
+                              widget.onLeftButtonPressed(i);
+                            })
+                        : Container(),
+                    SizedBox(width: 10),
+                    Text(months[widget.index], style: getTextStyle),
+                    SizedBox(width: 10),
+                    widget.index >= 0
+                        ? InkWell(
+                            child: Icon(
+                              Icons.arrow_right,
+                              color: Color(0xff34378b),
+                            ),
+                            onTap: () {
+                              int i = widget.index + 1;
+                              widget.onLeftButtonPressed(i);
+                            })
+                        : Container(),
+                  ],
+                )
+                // child: CarouselSlider(
+                //   options: CarouselOptions(
+                //       initialPage: widget.index,
+                //       autoPlay: false,
+                //       disableCenter: true,
+                //       enlargeCenterPage: true,
+                //       enableInfiniteScroll: false,
+                //       height: 25.0,
+                //       viewportFraction: 0.3,
+                //       onPageChanged: (i, page) {
+                //         widget.onLeftButtonPressed(i);
+                //       }),
+                //   items: months.map((i) {
+                //     return Builder(
+                //       builder: (BuildContext context) {
+                //         return Container(
+                //             width: 50,
+                //             margin: EdgeInsets.symmetric(horizontal: 5.0),
+                //             decoration: BoxDecoration(color: Colors.transparent),
+                //             child: Text(i, style: getTextStyle));
+                //       },
+                //     );
+                //   }).toList(),
+                // ),
+                ),
             // Container(
             //     width: widget.headerWidth * 0.4,
             //     child: Row(
@@ -173,8 +204,22 @@ class _CalendarHeaderState extends State<CalendarHeader> {
                   widget.linkCallback();
                 },
                 child: Container(
-                    child: Text(widget.headerTitleRight,
-                        style: defaultHeaderTitleRight))),
+                    padding:
+                        EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
+                    decoration: new BoxDecoration(
+                      color: Color(0xff34378b),
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                            child: Image.asset("assets/images/cala.png"),
+                            width: 15),
+                        SizedBox(width: 3),
+                        Text(widget.headerTitleRight,
+                            style: defaultHeaderTitleRight)
+                      ],
+                    ))),
           ],
         ));
   }

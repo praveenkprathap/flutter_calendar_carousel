@@ -192,7 +192,7 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
       this.headerMargin,
       this.childAspectRatio = 1.0,
       this.weekDayMargin = const EdgeInsets.only(bottom: 4.0),
-      this.weekDayPadding = const EdgeInsets.only(bottom: 20.0),
+      this.weekDayPadding = const EdgeInsets.only(bottom: 10.0),
       this.weekDayBackgroundColor = Colors.transparent,
       this.customWeekDayBuilder,
       this.customDayBuilder,
@@ -453,6 +453,7 @@ class _CalendarState<T extends EventInterface>
             onPageChanged: (index) {
               this._setDate(index);
             },
+            allowImplicitScrolling: true,
             controller: _controller,
             itemBuilder: (context, index) {
               return widget.weekFormat ? weekBuilder(index) : builder(index);

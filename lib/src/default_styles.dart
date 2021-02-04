@@ -4,7 +4,7 @@ double defaultfontSize;
 
 TextStyle get defaultHeaderTextStyle => TextStyle(
       fontFamily: 'Axiforma',
-      fontSize: defaultfontSize * 4,
+      fontSize: defaultfontSize * 5,
       fontWeight: FontWeight.w500,
       color: Color(0xff34378b),
     );
@@ -15,12 +15,10 @@ TextStyle get defaultPrevDaysTextStyle => TextStyle(
       fontSize: defaultfontSize * 4,
     );
 TextStyle get defaultHeaderTitleRight => TextStyle(
-      fontFamily: 'Axiforma',
-      color: Color(0xff6e6e6e),
-      fontWeight: FontWeight.w300,
-      fontSize: defaultfontSize * 3.8,
-      decoration: TextDecoration.underline,
-    );
+    fontFamily: 'Axiforma',
+    color: Color(0xffffffff),
+    fontWeight: FontWeight.w500,
+    fontSize: defaultfontSize * 3.5);
 TextStyle get defaultNextDaysTextStyle => TextStyle(
       fontFamily: 'Axiforma',
       color: Colors.grey,
